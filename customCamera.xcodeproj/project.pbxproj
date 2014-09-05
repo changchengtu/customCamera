@@ -22,6 +22,7 @@
 		6A827F7C19B98526000CE07D /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A827F5B19B98526000CE07D /* UIKit.framework */; };
 		6A827F8419B98526000CE07D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 6A827F8219B98526000CE07D /* InfoPlist.strings */; };
 		6A827F8619B98526000CE07D /* customCameraTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 6A827F8519B98526000CE07D /* customCameraTests.m */; };
+		6A827F9019B9865D000CE07D /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A827F8F19B9865D000CE07D /* AVFoundation.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,6 +56,7 @@
 		6A827F8119B98526000CE07D /* customCameraTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "customCameraTests-Info.plist"; sourceTree = "<group>"; };
 		6A827F8319B98526000CE07D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		6A827F8519B98526000CE07D /* customCameraTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = customCameraTests.m; sourceTree = "<group>"; };
+		6A827F8F19B9865D000CE07D /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,6 +64,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A827F9019B9865D000CE07D /* AVFoundation.framework in Frameworks */,
 				6A827F5A19B98526000CE07D /* CoreGraphics.framework in Frameworks */,
 				6A827F5C19B98526000CE07D /* UIKit.framework in Frameworks */,
 				6A827F5819B98525000CE07D /* Foundation.framework in Frameworks */,
@@ -103,6 +106,7 @@
 		6A827F5619B98525000CE07D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6A827F8F19B9865D000CE07D /* AVFoundation.framework */,
 				6A827F5719B98525000CE07D /* Foundation.framework */,
 				6A827F5919B98526000CE07D /* CoreGraphics.framework */,
 				6A827F5B19B98526000CE07D /* UIKit.framework */,
