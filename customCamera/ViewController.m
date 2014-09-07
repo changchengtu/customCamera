@@ -35,8 +35,6 @@
     [startRecordButton setEnabled:NO];
     
     [playButton setHidden:YES];
-    [saveImageButton setHidden:YES];
-    [retakeButton setHidden:YES];
     [startRecordButton setHidden:YES];
     
 }
@@ -55,14 +53,14 @@
         [session addInput:deviceInput];
     }
     
+    // for preview the photo
     AVCaptureVideoPreviewLayer *previewLayer = [[AVCaptureVideoPreviewLayer alloc] initWithSession:session];
     [previewLayer setVideoGravity:AVLayerVideoGravityResizeAspectFill];
-    CALayer *rootLayer = [[self view] layer];
+    CALayer *rootLayer = [[self view] layer]; //add rootLayer on the view
     [rootLayer setMasksToBounds:YES];
     CGRect frame = self.frameForCapture.frame;
     
     [previewLayer setFrame:frame];
-    
     [rootLayer insertSublayer:previewLayer atIndex:0];
     
     stillImageOutput = [[AVCaptureStillImageOutput alloc] init];
@@ -109,7 +107,6 @@
 
 - (IBAction)takePhoto:(id)sender
 {
-    [takePhotoButton setHidden:YES];
     AVCaptureConnection *videoConnection = nil;
     
     for (AVCaptureConnection *connection in stillImageOutput.connections) {
@@ -120,15 +117,13 @@
                 break;
             }
         }
-        if (videoConnection) {
-            break;
-        }
-        
+        if (videoConnection) { break;}
     }
     
     [stillImageOutput captureStillImageAsynchronouslyFromConnection:videoConnection completionHandler:^(CMSampleBufferRef imageDataSampleBuffer, NSError *error){
         if (imageDataSampleBuffer != NULL) {
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
+            // get photo
             UIImage *image = [UIImage imageWithData:imageData];
             
         }
@@ -140,28 +135,23 @@
     [startRecordButton setEnabled:YES];
     [saveImageButton setEnabled:YES];
     [takePhotoButton setEnabled:NO];
-    [retakeButton setHidden:NO];
     [startRecordButton setHidden:NO];
-    [saveImageButton setHidden:NO];
     [playButton setHidden:NO];
     
     [self startVoiceRecod];
     
 }
 
-- (IBAction)retake:(id)sender {
+- (IBAction)retake:(id)sender
+{
     [session startRunning];
     [playButton setEnabled:NO];
     [saveImageButton setEnabled:NO];
     [retakeButton setEnabled:NO];
     [startRecordButton setEnabled:NO];
     [takePhotoButton setEnabled:YES];
-    
     [playButton setHidden:YES];
-    [saveImageButton setHidden:YES];
-    [retakeButton setHidden:YES];
     [startRecordButton setHidden:YES];
-    [takePhotoButton setHidden:NO];
 }
 
 - (IBAction)startRecordTapped:(id)sender {
@@ -200,6 +190,7 @@
 
 - (IBAction)playTapped:(id)sender {
     if (!recorder.recording){
+        // get audio file
         player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
         [player setDelegate:self];
         [player play];

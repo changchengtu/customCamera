@@ -25,9 +25,9 @@
 @property (weak, nonatomic) IBOutlet UIButton *startButton;
 @property (weak, nonatomic) IBOutlet UIButton *startRecordButton;
 
-@property (weak, nonatomic) IBOutlet UIButton *retakeButton;
-@property (weak, nonatomic) IBOutlet UIButton *saveImageButton;
-@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *retakeButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *saveImageButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *takePhotoButton;
 
 
 @end
