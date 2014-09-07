@@ -7,26 +7,42 @@
 //
 
 #import "ViewController.h"
-#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController ()
 
 @end
 
 @implementation ViewController
-AVCaptureSession *session;
-AVCaptureStillImageOutput *stillImageOutput;
-@synthesize imageView;
 @synthesize frameForCapture;
+@synthesize playButton;
+@synthesize startRecordButton;
+@synthesize retakeButton;
+@synthesize saveImageButton;
+@synthesize takePhotoButton;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
+    
+    [self startCamera];
+    
+    // Disable Stop/Play button when application launches
+    [playButton setEnabled:NO];
+    [saveImageButton setEnabled:NO];
+    [retakeButton setEnabled:NO];
+    [startRecordButton setEnabled:NO];
+    
+    [playButton setHidden:YES];
+    [saveImageButton setHidden:YES];
+    [retakeButton setHidden:YES];
+    [startRecordButton setHidden:YES];
+    
 }
 
-- (void)viewDidAppear:(BOOL)animated
+
+- (void)startCamera
 {
     session = [[AVCaptureSession alloc] init];
     [session setSessionPreset:AVCaptureSessionPresetPhoto];
@@ -57,14 +73,43 @@ AVCaptureStillImageOutput *stillImageOutput;
     [session startRunning];
     
 }
+
+- (void)startVoiceRecod
+{
+    // Set the audio file
+    NSArray *pathComponents = [NSArray arrayWithObjects:
+                               [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) lastObject],
+                               @"MyAudioMemo.m4a",
+                               nil];
+    NSURL *outputFileURL = [NSURL fileURLWithPathComponents:pathComponents];
+    
+    // Setup audio session
+    AVAudioSession *session = [AVAudioSession sharedInstance];
+    [session setCategory:AVAudioSessionCategoryPlayAndRecord error:nil];
+    
+    // Define the recorder setting
+    NSMutableDictionary *recordSetting = [[NSMutableDictionary alloc] init];
+    
+    [recordSetting setValue:[NSNumber numberWithInt:kAudioFormatMPEG4AAC] forKey:AVFormatIDKey];
+    [recordSetting setValue:[NSNumber numberWithFloat:44100.0] forKey:AVSampleRateKey];
+    [recordSetting setValue:[NSNumber numberWithInt: 2] forKey:AVNumberOfChannelsKey];
+    
+    // Initiate and prepare the recorder
+    recorder = [[AVAudioRecorder alloc] initWithURL:outputFileURL settings:recordSetting error:NULL];
+    recorder.delegate = self;
+    recorder.meteringEnabled = YES;
+    [recorder prepareToRecord];
+}
+
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-- (IBAction)takePhoto:(id)sender {
-    
+- (IBAction)takePhoto:(id)sender
+{
+    [takePhotoButton setHidden:YES];
     AVCaptureConnection *videoConnection = nil;
     
     for (AVCaptureConnection *connection in stillImageOutput.connections) {
@@ -85,8 +130,91 @@ AVCaptureStillImageOutput *stillImageOutput;
         if (imageDataSampleBuffer != NULL) {
             NSData *imageData = [AVCaptureStillImageOutput jpegStillImageNSDataRepresentation:imageDataSampleBuffer];
             UIImage *image = [UIImage imageWithData:imageData];
-            self.imageView.image = image;
+            
         }
     }];
+    
+    [session stopRunning];
+    
+    [retakeButton setEnabled:YES];
+    [startRecordButton setEnabled:YES];
+    [saveImageButton setEnabled:YES];
+    [takePhotoButton setEnabled:NO];
+    [retakeButton setHidden:NO];
+    [startRecordButton setHidden:NO];
+    [saveImageButton setHidden:NO];
+    [playButton setHidden:NO];
+    
+    [self startVoiceRecod];
+    
 }
+
+- (IBAction)retake:(id)sender {
+    [session startRunning];
+    [playButton setEnabled:NO];
+    [saveImageButton setEnabled:NO];
+    [retakeButton setEnabled:NO];
+    [startRecordButton setEnabled:NO];
+    [takePhotoButton setEnabled:YES];
+    
+    [playButton setHidden:YES];
+    [saveImageButton setHidden:YES];
+    [retakeButton setHidden:YES];
+    [startRecordButton setHidden:YES];
+    [takePhotoButton setHidden:NO];
+}
+
+- (IBAction)startRecordTapped:(id)sender {
+    if (player.playing) {
+        [player stop];
+    }
+    
+    if (!recorder.recording) {
+        AVAudioSession *session = [AVAudioSession sharedInstance];
+        [session setActive:YES error:nil];
+        
+        // Start recording
+        [recorder record];
+        [startRecordButton setTitle:@"Done" forState:UIControlStateNormal];
+        
+    } else {
+        
+        // Stop recording
+        [recorder stop];
+         
+         AVAudioSession *audioSession = [AVAudioSession sharedInstance];
+         [audioSession setActive:NO error:nil];
+        //[playButton setEnabled:YES];
+        //[playButton setHidden:YES];
+    }
+    
+    [playButton setEnabled:NO];
+}
+
+- (void) audioRecorderDidFinishRecording:(AVAudioRecorder *)avrecorder successfully:(BOOL)flag{
+    [startRecordButton setTitle:@"Record" forState:UIControlStateNormal];
+    
+    [playButton setEnabled:YES];
+}
+
+
+- (IBAction)playTapped:(id)sender {
+    if (!recorder.recording){
+        player = [[AVAudioPlayer alloc] initWithContentsOfURL:recorder.url error:nil];
+        [player setDelegate:self];
+        [player play];
+    }
+}
+
+/*
+- (void) audioPlayerDidFinishPlaying:(AVAudioPlayer *)player successfully:(BOOL)flag{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle: @"Done"
+                                                    message: @"Finish playing the recording!"
+                                                   delegate: nil
+                                          cancelButtonTitle:@"OK"
+                                          otherButtonTitles:nil];
+    [alert show];
+}
+*/
+
 @end

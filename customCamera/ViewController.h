@@ -7,10 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <AVFoundation/AVFoundation.h>
 
 @interface ViewController : UIViewController
+{
+    AVAudioRecorder *recorder;
+    AVAudioPlayer *player;
+    AVCaptureSession *session;
+    AVCaptureStillImageOutput *stillImageOutput;
+}
 
 @property (weak, nonatomic) IBOutlet UIView *frameForCapture;
-@property (weak, nonatomic) IBOutlet UIImageView *imageView;
+
 - (IBAction)takePhoto:(id)sender;
+
+@property (weak, nonatomic) IBOutlet UIButton *playButton;
+@property (weak, nonatomic) IBOutlet UIButton *startButton;
+@property (weak, nonatomic) IBOutlet UIButton *startRecordButton;
+
+@property (weak, nonatomic) IBOutlet UIButton *retakeButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveImageButton;
+@property (weak, nonatomic) IBOutlet UIButton *takePhotoButton;
+
+
 @end
