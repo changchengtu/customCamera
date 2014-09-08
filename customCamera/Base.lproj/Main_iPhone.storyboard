@@ -56,7 +56,11 @@
                                                 </connections>
                                             </barButtonItem>
                                             <barButtonItem style="plain" systemItem="flexibleSpace" id="s35-wO-as2"/>
-                                            <barButtonItem systemItem="save" id="lrq-Zs-ChZ"/>
+                                            <barButtonItem systemItem="save" id="lrq-Zs-ChZ">
+                                                <connections>
+                                                    <action selector="savePhotoTapped:" destination="vXZ-lx-hvc" id="dqg-2y-uaR"/>
+                                                </connections>
+                                            </barButtonItem>
                                         </items>
                                     </toolbar>
                                 </subviews>

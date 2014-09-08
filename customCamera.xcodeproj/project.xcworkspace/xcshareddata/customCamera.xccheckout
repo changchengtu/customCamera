@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>255D7623-061C-42C8-BD05-350475997238</string>
+	<key>IDESourceControlProjectName</key>
+	<string>customCamera</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3D422698-5120-4A8F-BC03-DD03E8FD9F22</key>
+		<string>ssh://github.com/changchengtu/customCamera.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>customCamera.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3D422698-5120-4A8F-BC03-DD03E8FD9F22</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/changchengtu/customCamera.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3D422698-5120-4A8F-BC03-DD03E8FD9F22</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3D422698-5120-4A8F-BC03-DD03E8FD9F22</string>
+			<key>IDESourceControlWCCName</key>
+			<string>customCamera</string>
+		</dict>
+	</array>
+</dict>
+</plist>
